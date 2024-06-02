@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('code', models.CharField(db_index=True, max_length=10, unique=True)),
-                ('name', models.CharField(max_length=255)),
+                ('name', models.TextField()),
                 ('rating', models.PositiveIntegerField(default=0)),
                 ('price', models.DecimalField(decimal_places=2, max_digits=8)),
                 ('avg_score', models.DecimalField(decimal_places=1, max_digits=2)),
