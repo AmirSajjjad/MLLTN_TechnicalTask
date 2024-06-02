@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,3 +138,25 @@ CACHES = {
         }
     }
 }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'my_project.log',  # Specify your log file name
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+        'level': 'DEBUG',
+    },
+}
+
+# PROJECT_PATH = os.path.abspath(os.path.dirname(__name__)).replace('\\', '/')
+SETTINGS_PATH = os.path.dirname(os.path.realpath(__file__ )).replace('\\', '/')
+
+with open(f'{SETTINGS_PATH}/user-agents.txt', 'r') as f:
+        REQUESTS_USER_AGENTS = f.readlines()
