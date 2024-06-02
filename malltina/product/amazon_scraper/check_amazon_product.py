@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-# from time import sleep
 from amazoncaptcha import AmazonCaptcha
 
 from .headers import generate_headers
@@ -14,8 +13,6 @@ class AmazonScraperError(Exception):
 
 class AmazonScraper:
     def __init__(self) -> None:
-        self.error = ""
-
         self.target_url = "https://www.amazon.com/dp/"
         self.headers = generate_headers()
 
@@ -31,7 +28,6 @@ class AmazonScraper:
             amzn = soup.find("input", {"name": "amzn"})['value']
             amzn_r = soup.find("input", {"name": "amzn-r"})['value']
 
-            # sleep(3)
             response = requests.get(
                 "https://www.amazon.com/errors/validateCaptcha",
                 params={"amzn": amzn, "amzn-r": amzn_r, "field-keywords": solution}, headers=self.headers)
@@ -55,41 +51,6 @@ class AmazonScraper:
             return None
         
     def get_price(self, soup):
-        # discount = soup.find("span", attrs={
-        #                      "class": "reinventPriceSavingsPercentageMargin savingsPercentage"})
-        # priceSpan = soup.select_one(
-        #     "span.a-price.reinventPricePriceToPayMargin.priceToPay, span.a-price.apexPriceToPay")
-
-        # # Check to see if there is a price
-        # if priceSpan:
-        #     price = priceSpan.find(
-        #         "span", {"class": "a-offscreen"}).text.strip()
-        # else:
-        #     price = None
-
-        # # Check to see if there is a discounted price, else just use the normal price or to NA.
-        # if discount:
-        #     discount = discount.text.strip()
-        #     productPrice = soup.find(
-        #         "span", attrs={"class": "a-price a-text-price"}).text.strip()
-        # elif price:
-        #     productPrice = price
-        #     discount = False
-        # else:
-        #     productPrice = "NA"
-
-        # if productPrice == "NA":
-        #     otherPriceOption = soup.find("span", {"id": "priceblock_ourprice"})
-        #     productPrice = otherPriceOption.text.strip() if otherPriceOption != None else "NA"
-
-        # if productPrice == "NA":
-        #     productPrice = soup.find("span", {"class": "a-offscreen"})
-        #     productPrice = productPrice.text.strip() if productPrice != None else "NA"
-
-        # if productPrice == "NA":
-        #     productPrice = soup.find("span", {"class": "a-price-whole"})
-        #     productPrice = productPrice.text.strip() if productPrice != None else "NA"
-
         price = soup.find("span",{"class":"a-price"})
         if not price:
             return -1

@@ -146,7 +146,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'my_project.log',  # Specify your log file name
+            'filename': 'my_project.log',
         },
     },
     'root': {
@@ -164,7 +164,6 @@ REST_FRAMEWORK = {
     }
 }
 
-# PROJECT_PATH = os.path.abspath(os.path.dirname(__name__)).replace('\\', '/')
 SETTINGS_PATH = os.path.dirname(os.path.realpath(__file__ )).replace('\\', '/')
 
 with open(f'{SETTINGS_PATH}/user-agents.txt', 'r') as f:

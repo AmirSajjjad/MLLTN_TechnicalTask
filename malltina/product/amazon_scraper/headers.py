@@ -2,7 +2,6 @@ import random
 from collections import OrderedDict
 from django.conf import settings
 
-# accept header -> default values
 accepted = [
     'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
     'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
