@@ -3,6 +3,7 @@ from django.core.cache import cache
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.throttling import AnonRateThrottle
 
 from .models import Product
 from .serializer import ProductRetrieveSerializers
@@ -12,6 +13,8 @@ from .amazon_scraper.check_amazon_product import AmazonScraper, AmazonScraperErr
 logger = logging.getLogger(__name__)
 
 class CheckProductApiView(APIView):
+    throttle_classes = [AnonRateThrottle]
+
     def get(self, request, *args, **kwargs):
         product_data = cache.get(kwargs['product_code'])
         if product_data:

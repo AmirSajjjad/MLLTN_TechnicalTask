@@ -155,6 +155,15 @@ LOGGING = {
     },
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+    }
+}
+
 # PROJECT_PATH = os.path.abspath(os.path.dirname(__name__)).replace('\\', '/')
 SETTINGS_PATH = os.path.dirname(os.path.realpath(__file__ )).replace('\\', '/')
 
