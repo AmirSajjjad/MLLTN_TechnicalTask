@@ -1,0 +1,44 @@
+version: '3'
+services:
+  db:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: malltina
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      PGDATA: /data/postgres
+    networks:
+      - mynet
+
+  redis:
+    image: redis:latest
+    networks:
+      - mynet
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python malltina/manage.py migrate &&
+              python malltina/manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    networks:
+      - mynet
+    depends_on:
+      - db
+      - redis
+    environment:      
+      POSTGRES_HOST: db
+      POSTGRES_NAME: malltina
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_PORT: 5432
+      REDIS_LOCATION: "redis://redis:6379/1"
+
+networks:
+  mynet:
+    driver: bridge

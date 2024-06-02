@@ -3,5 +3,5 @@ djangorestframework==3.15.1
 psycopg2-binary==2.9.9
 django-redis==5.4.0
 bs4==0.0.2
-requests===2.32.3
+requests==2.30.0
 amazoncaptcha==0.5.11

@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-fl5hpu!dn8-gu*%n6fdk#fu+w4&0a-yvm&$8k&#u$6)6860=_m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0"]
 
 # Application definition
 
@@ -79,11 +78,11 @@ WSGI_APPLICATION = 'malltina.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'maltina', 
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
+        'NAME': os.environ.get('POSTGRES_NAME', 'malltina'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '123456'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'), 
+        'PORT': int(os.environ.get("POSTGRES_PORT", "5432")),
     }
 }
 
@@ -133,6 +132,7 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": os.environ.get('REDIS_LOCATION', "redis://127.0.0.1:6379/1"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient"
         }
